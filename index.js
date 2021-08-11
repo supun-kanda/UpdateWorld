@@ -1,8 +1,12 @@
+require('dotenv').config();
+
 const request = require('request');
 const Twitter = require('twitter');
+const moment = require('moment');
 
 const requestConfig = JSON.parse(process.env.REQUEST_CONFIG);
 const TWEET_FIELD = process.env.TWEET_FIELD;
+const date = moment().format("YYYY/MM/DD");
 
 // connect to the twitter client
 const client = new Twitter({
@@ -26,30 +30,25 @@ function tweetJoke(status) {
     });
 }
 
-exports.handler = async (event) => {
+// make request to the public joke api
+request(requestConfig, (error, response, body) => {
+    let jokeContent, tweet;
 
-    // make request to the public joke api
-    request(requestConfig, (error, response, body) => {
-        let jokeContent, tweet;
-
-        if (!error) {
-            try {
-                jokeContent = JSON.parse(body);
-            } catch (jsonError) {
-                error = jsonError;
-            }
+    if (!error) {
+        try {
+            jokeContent = JSON.parse(body);
+        } catch (jsonError) {
+            error = jsonError;
         }
+    }
 
-        if (error || !jokeContent[TWEET_FIELD]) {
-            console.error("Error while getting the joke.", error);
-            tweet = 'No jokes this time. The Joke API gave an error. Sorry y\'all'
-        } else {
-            tweet = jokeContent[TWEET_FIELD];
-        }
+    if (error || !jokeContent[TWEET_FIELD]) {
+        console.error("Error while getting the joke.", error);
+        tweet = `No jokes this time. The Joke API gave an error. Sorry y\'all\n\n${date}`
+    } else {
+        tweet = jokeContent[TWEET_FIELD];
+    }
 
-        // post the tweet
-        tweetJoke(tweet);
-    });
-
-    return null;
-};
+    // post the tweet
+    tweetJoke(tweet);
+});
