@@ -13,5 +13,5 @@ _TWITTER_ACCESS_TOKEN_SECRET_: twitter api access token secret
 _REQUEST_CONFIG_: request configuration matching to use with nodejs request library  
 _TWEET_FIELD_: content field name in the response body
 
-### sample _REQUEST_CONFIG_
+### Sample _REQUEST_CONFIG_
 ```{"method":"GET","url":"your-api-url"}```
