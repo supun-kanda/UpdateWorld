@@ -14,4 +14,16 @@ _REQUEST_CONFIG_: request configuration matching to use with nodejs request libr
 _TWEET_FIELD_: content field name in the response body
 
 ### Sample _REQUEST_CONFIG_
-```{"method":"GET","url":"your-api-url"}```
+```
+{"method":"GET","url":"your-api-url"}
+```
+
+## Build Docker
+```
+sudo docker build . -t tweet-1.0.0
+```
+
+## Execute
+```
+sudo sh ./cron.js
+```
