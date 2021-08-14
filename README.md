@@ -1,6 +1,10 @@
 # UpdateWorld
 post tweets using a publicly available api
 
+## Versioning
+- **NodeJs**: _v14.17.5_
+- **npm**: _6.14.14_
+
 ## Environment variables
 
 - ### Twitter API Configs
@@ -25,5 +29,10 @@ sudo docker build . -t tweet-1.0.0
 
 ## Execute
 ```
-sudo sh ./cron.js
+sudo sh ./cron.js your_project/path your_npm/path
 ```
+to get npm path, use following command (linux or mac)
+```
+which npm
+```
+
